@@ -26,6 +26,14 @@ services:
     hostname: hello-server
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8070/eureka
-    restart: always
+
+  hello-consumer:
+    container_name: hello-consumer
+    build: hello-consumer
+    ports:
+      - 8082:8082
+    hostname: hello-consumer
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8070/eureka
 
 
