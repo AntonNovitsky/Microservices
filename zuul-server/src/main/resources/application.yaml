@@ -1,23 +1,33 @@
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 60000
+
 zuul:
+  ignoredServices: '*'
   prefix: /api
   routes:
     hello-server:
       path: /server/**
-      url: http://localhost:8071
-    hello-client:
-      path: /client/**
-      serviceId: HELLO-CLIENT
-  ignoredServices: '*'
+      serviceId: HELLO-SERVER
+#      stripPrefix: false
+#    hello-client:
+#      path: /client/**
+#      serviceId: HELLO-CLIENT
   host:
     connect-timeout-millis: 20000
     socket-timeout-millis: 20000
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://localhost:8070/eureka/
-  instance:
-    hostname: localhost
+    fetch-registry: true
 
 server:
   port: 8079

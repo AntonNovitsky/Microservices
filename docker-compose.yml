@@ -1,0 +1,31 @@
+version: '3'
+services:
+  eureka-server:
+    container_name: eureka-server
+    build: eureka-server
+    ports:
+      - 8070:8070
+    hostname: eureka-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8070/eureka
+
+  zuul-server:
+    container_name: zuul-server
+    build: zuul-server
+    ports:
+      - 8079:8079
+    hostname: zuul-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8070/eureka
+
+  hello-server:
+    container_name: hello-server
+    build: hello-server
+    ports:
+      - 8098:8098
+    hostname: hello-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8070/eureka
+    restart: always
+
+

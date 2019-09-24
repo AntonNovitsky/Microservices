@@ -1,4 +1,10 @@
+spring:
+  application:
+    name: eureka-service
+
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     registerWithEureka: false
     fetchRegistry: false
@@ -8,6 +14,3 @@ eureka:
 server:
   port: 8070
 
-spring:
-  application:
-    name: eureka-service
