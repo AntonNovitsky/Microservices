@@ -6,17 +6,19 @@
 #          thread:
 #            timeoutInMilliseconds: 60000
 
-#zuul:
-#  ignoredServices: '*'
-#  prefix: /api
-#  routes:
-#    hello-server:
-#      path: /server/**
-#      serviceId: HELLO-SERVER
+#TODO Zuul routing works locally, but does not work in docker
+
+zuul:
+  ignoredServices: '*'
+  prefix: /api
+  routes:
+    hello-server:
+      path: /server/**
+      serviceId: HELLO-SERVER
 #      stripPrefix: false
-#    hello-client:
-#      path: /client/**
-#      serviceId: HELLO-CLIENT
+    hello-consumer:
+      path: /consumer/**
+      serviceId: HELLO-CONSUMER
 #      stripPrefix: false
 #  host:
 #    connect-timeout-millis: 20000
