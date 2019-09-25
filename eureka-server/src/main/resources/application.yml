@@ -1,6 +1,9 @@
 spring:
   application:
     name: eureka-service
+  cloud:
+    client:
+      hostname: ${spring.application.name}
 
 eureka:
   instance:

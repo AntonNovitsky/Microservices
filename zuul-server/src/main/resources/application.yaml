@@ -6,19 +6,17 @@
 #          thread:
 #            timeoutInMilliseconds: 60000
 
-#TODO Zuul routing works locally, but does not work in docker
-
 zuul:
   ignoredServices: '*'
   prefix: /api
   routes:
     hello-server:
       path: /server/**
-      serviceId: HELLO-SERVER
+      serviceId: hello-server
 #      stripPrefix: false
     hello-consumer:
       path: /consumer/**
-      serviceId: HELLO-CONSUMER
+      serviceId: hello-consumer
 #      stripPrefix: false
 #  host:
 #    connect-timeout-millis: 20000
@@ -37,3 +35,6 @@ server:
 spring:
   application:
     name: zuul-service
+  cloud:
+    client:
+      hostname: ${spring.application.name}

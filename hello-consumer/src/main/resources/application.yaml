@@ -1,6 +1,9 @@
 spring:
   application:
     name: hello-consumer
+  cloud:
+    client:
+      hostname: ${spring.application.name}
 
 server:
   port: 8082
