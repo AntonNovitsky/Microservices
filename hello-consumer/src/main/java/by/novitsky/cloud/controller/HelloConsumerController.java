@@ -1,8 +1,10 @@
 package by.novitsky.cloud.controller;
 
 import by.novitsky.cloud.entity.Item;
+import by.novitsky.cloud.service.FeignInternalService;
 import by.novitsky.cloud.service.FeignPlaceholderService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -26,12 +28,15 @@ public class HelloConsumerController {
     private DiscoveryClient discoveryClient;
     private LoadBalancerClient loadBalancerClient;
     private FeignPlaceholderService feignPlaceholderController;
+    private FeignInternalService feignInternalService;
 
-    public HelloConsumerController(RestTemplate restTemplate, DiscoveryClient discoveryClient, LoadBalancerClient loadBalancerClient, FeignPlaceholderService feignPlaceholderController) {
+    @Autowired
+    public HelloConsumerController(RestTemplate restTemplate, DiscoveryClient discoveryClient, LoadBalancerClient loadBalancerClient, FeignPlaceholderService feignPlaceholderController, FeignInternalService feignInternalService) {
         this.restTemplate = restTemplate;
         this.discoveryClient = discoveryClient;
         this.loadBalancerClient = loadBalancerClient;
         this.feignPlaceholderController = feignPlaceholderController;
+        this.feignInternalService = feignInternalService;
     }
 
     @GetMapping("/hello")
@@ -43,7 +48,12 @@ public class HelloConsumerController {
         return requestResult;
     }
 
-    @GetMapping("/balancedhello")
+    @GetMapping("/hello_feign")
+    public String getFeignHello(){
+        return feignInternalService.getHello();
+    }
+
+    @GetMapping("/balanced_hello")
     public String getBalancedHello(){
         String url = getBalancedUrl(PRODUCER_PATH);
         String requestResult = new RestTemplate().getForObject(url, String.class);
