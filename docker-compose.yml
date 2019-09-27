@@ -1,5 +1,14 @@
 version: '3'
 services:
+  config-server:
+    container_name: config-server
+    build: config-server
+    ports:
+      - 8060:8060
+    hostname: config-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8070/eureka
+
   eureka-server:
     container_name: eureka-server
     build: eureka-server
@@ -26,6 +35,8 @@ services:
     hostname: hello-server
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8070/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8060
+    restart: always
 
   hello-consumer:
     container_name: hello-consumer
