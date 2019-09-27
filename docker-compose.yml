@@ -30,6 +30,8 @@ services:
   hello-server:
     container_name: hello-server
     build: hello-server
+    depends_on:
+      - config-server
     ports:
       - 8098:8098
     hostname: hello-server
