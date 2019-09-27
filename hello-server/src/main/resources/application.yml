@@ -4,9 +4,11 @@ spring:
   cloud:
     client:
       hostname: ${spring.application.name}
+    config:
+      uri: http://localhost:8060
 
-server:
-  port: 8098
+#server:
+#  port: 8098
 
 eureka:
   instance:

@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: hello-server
+  cloud:
+    config:
+      uri: http://localhost:8060
+      fail-fast: true
